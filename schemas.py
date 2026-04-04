@@ -18,7 +18,7 @@ class UserRead(BaseModel):
     status: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class UserUpdate(BaseModel):
     full_name: Optional[str]
@@ -38,7 +38,7 @@ class RoleRead(BaseModel):
     name: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class RoleUpdate(BaseModel):
     name: Optional[str]
@@ -55,7 +55,7 @@ class GroupRead(BaseModel):
     description: Optional[str] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class GroupUpdate(BaseModel):
     name: Optional[str]
@@ -73,7 +73,7 @@ class ModuleRead(BaseModel):
     description: Optional[str] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class ModuleUpdate(BaseModel):
     title: Optional[str]
@@ -93,7 +93,7 @@ class TaskRead(BaseModel):
     module_id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class TaskUpdate(BaseModel):
     title: Optional[str]
@@ -103,7 +103,6 @@ class TaskUpdate(BaseModel):
 
 # ---------------- SUBMISSION ----------------
 class SubmissionCreate(BaseModel):
-    user_id: int
     task_id: int
     content: str
     grade: Optional[float] = None
@@ -116,10 +115,14 @@ class SubmissionRead(BaseModel):
     grade: Optional[float] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class SubmissionUpdate(BaseModel):
     content: Optional[str]
     grade: Optional[float]
     user_id: Optional[int]
     task_id: Optional[int]
+
+class UserLogin(BaseModel):
+    email: str
+    password: str

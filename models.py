@@ -58,8 +58,8 @@ class Submission(Base):
     __tablename__ = "submissions"
 
     id = Column(Integer, primary_key=True, index=True)
-    student_id = Column(Integer, ForeignKey("users.id"))
     task_id = Column(Integer, ForeignKey("tasks.id"))
-    code = Column(Text)
-    score = Column(Integer)
-    submitted_at = Column(DateTime, default=datetime.datetime.utcnow)
+    user_id = Column(Integer, ForeignKey("users.id"))  # добавили сюда
+    content = Column(Text)
+    grade = Column(Integer)
+    comment = Column(Text)
