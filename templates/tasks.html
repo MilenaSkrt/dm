@@ -1,13 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head><title>Задания</title></head>
-<body>
-<h2>Задания модуля</h2>
-<ul>
-{% for task in tasks %}
-    <li>{{ task.title }} - {{ task.description }} | <a href="/submit_task_page?task_id={{ task.id }}">Сдать</a></li>
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Задания</h2>
+
+{% for t in tasks %}
+<div class="card">
+    <h3>{{ t.title }}</h3>
+    <p>{{ t.description }}</p>
+
+    <a href="/submit/{{ t.id }}">
+        <button class="btn">Отправить решение</button>
+    </a>
+</div>
 {% endfor %}
-</ul>
-<a href="/modules_page">Назад к модулям</a>
-</body>
-</html>
+
+{% endblock %}

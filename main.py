@@ -1,3 +1,10 @@
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+from fastapi import Request
+
+templates = Jinja2Templates(directory="templates")
+
+
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.responses import FileResponse
@@ -43,6 +50,7 @@ else:
 app = FastAPI(title="Study M API")
 Base.metadata.create_all(bind=engine)
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # ---------------- DB ----------------
 def get_db():
@@ -472,3 +480,38 @@ def report_performance_pdf(db: Session = Depends(get_db)):
 
     c.save()
     return FileResponse(file, media_type='application/pdf', filename="performance_report.pdf")
+
+@app.get("/")
+def home(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
+@app.get("/login_page")
+def login_page(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request})
+
+
+@app.get("/modules_page")
+def modules_page(request: Request, db: Session = Depends(get_db)):
+    modules = db.query(Module).all()
+    return templates.TemplateResponse("modules.html", {
+        "request": request,
+        "modules": modules
+    })
+
+
+@app.get("/tasks_page")
+def tasks_page(request: Request, db: Session = Depends(get_db)):
+    tasks = db.query(Task).all()
+    return templates.TemplateResponse("tasks.html", {
+        "request": request,
+        "tasks": tasks
+    })
+
+
+@app.get("/submit/{task_id}")
+def submit_page(task_id: int, request: Request, db: Session = Depends(get_db)):
+    task = db.query(Task).filter(Task.id == task_id).first()
+    return templates.TemplateResponse("submit_task.html", {
+        "request": request,
+        "task": task
+    })

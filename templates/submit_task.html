@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head><title>Сдать задание</title></head>
-<body>
-<h2>Сдать задание</h2>
-<form method="post">
-    <input type="hidden" name="task_id" value="{{ task_id }}">
-    Код:<br>
-    <textarea name="code" rows="10" cols="50"></textarea><br>
-    <input type="submit" value="Сдать">
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Отправка решения</h2>
+
+<form method="post" action="/submit/{{ task.id }}">
+    <textarea name="content" rows="10" cols="50"></textarea><br><br>
+    <button class="btn">Отправить</button>
 </form>
-<a href="/modules_page">Назад к модулям</a>
-</body>
-</html>
+
+{% endblock %}

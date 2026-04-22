@@ -1,16 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head><title>Модули</title></head>
-<body>
-<h2>Список модулей</h2>
-<ul>
-{% for module in modules %}
-    <li>
-        {{ module.title }} - {{ module.description }}
-        | <a href="/tasks_page?module_id={{ module.id }}">Задания</a>
-    </li>
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Модули</h2>
+
+{% for m in modules %}
+<div class="card">
+    <h3>{{ m.title }}</h3>
+    <p>{{ m.description }}</p>
+</div>
 {% endfor %}
-</ul>
-<a href="/">Главная</a>
-</body>
-</html>
+
+{% endblock %}
