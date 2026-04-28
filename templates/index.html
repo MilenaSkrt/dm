@@ -1,39 +1,73 @@
 {% extends "base.html" %}
-
+{% block title %}Главная{% endblock %}
 {% block content %}
+<div class="content-sidebar">
+    <div class="welcome-section">
+        <h1>Добро пожаловать!</h1>
+        <div class="welcome-text">
+            <p>В систему обучения дисциплине <strong>«Учебно-исследовательская работа»</strong> 
+            для бакалавров направления <strong>15.03.03 «Прикладная механика»</strong>.</p>
+            <p style="margin-top:15px">Система поможет вам научиться получать <strong>численное решение физических задач</strong>,
+            поставленных в дифференциальной форме, с использованием языка программирования <strong>Python</strong>.</p>
+        </div>
+    </div>
+    <div class="features-grid">
+        <div class="feature-card" onclick="location.href='/theory'">
+            <div class="feature-icon">📚</div>
+            <h3>Теория</h3>
+            <p>Изучите численные методы решения дифференциальных уравнений и оптимизации</p>
+            <span class="feature-btn">Изучить →</span>
+        </div>
+        <div class="feature-card" onclick="location.href='/physics'">
+            <div class="feature-icon">⚡</div>
+            <h3>Обучение</h3>
+            <p>Практические примеры из физики и механики с интерактивными расчетами</p>
+            <span class="feature-btn">Практиковать →</span>
+        </div>
+        <div class="feature-card" onclick="location.href='/optimization'">
+            <div class="feature-icon">🎯</div>
+            <h3>Попробуй сам</h3>
+            <p>Решите задачи поиска оптимальных параметров в реальном времени</p>
+            <span class="feature-btn">Решать →</span>
+        </div>
+    </div>
+</div>
 
-<h1>Добро пожаловать</h1>
+<div class="animation-area">
+    <div class="animation-card">
+        <h3>🎯 Движение тела под углом</h3>
+        <canvas id="projectileCanvas"></canvas>
+        <div class="anim-stats">
+            <span>📐 Угол: <span id="animAngleValue">50</span>°</span>
+            <span>⚡ Скорость: <span id="animSpeedValue">28</span> м/с</span>
+        </div>
+        <div style="display: flex; gap: 8px; margin-top: 6px;">
+            <input type="range" id="animAngle" min="20" max="70" value="50" style="width: 45%; height: 3px;">
+            <input type="range" id="animSpeed" min="15" max="40" value="28" style="width: 45%; height: 3px;">
+        </div>
+    </div>
 
-<p>
-Система обучения дисциплине «Учебно-исследовательская работа».
-</p>
+    <div class="animation-card">
+        <h3>🔧 Колебания пружины</h3>
+        <canvas id="springCanvas"></canvas>
+        <div class="anim-stats">
+            <span>📊 m = 0.8 кг</span>
+            <span>🔧 k = 45 Н/м</span>
+            <span>📉 ζ = 0.33</span>
+        </div>
+    </div>
 
-<canvas id="canvas" width="500" height="200"></canvas>
-
-<script>
-let canvas = document.getElementById("canvas");
-let ctx = canvas.getContext("2d");
-
-let x = 0;
-let y = 100;
-
-function draw() {
-    ctx.clearRect(0,0,500,200);
-
-    ctx.beginPath();
-    ctx.arc(x, y, 10, 0, Math.PI*2);
-    ctx.fillStyle = "#002FE7";
-    ctx.fill();
-
-    x += 3;
-    y = 100 + 50 * Math.sin(x * 0.05);
-
-    if (x > 500) x = 0;
-
-    requestAnimationFrame(draw);
-}
-
-draw();
-</script>
-
+    <div class="animation-card">
+        <h3>💥 Выстрел ядра из пушки</h3>
+        <canvas id="cannonCanvas"></canvas>
+        <div class="anim-stats">
+            <span>📐 Угол: <span id="cannonAngleValue">42</span>°</span>
+            <span>⚡ Скорость: <span id="cannonSpeedValue">35</span> м/с</span>
+        </div>
+        <div style="display: flex; gap: 8px; margin-top: 6px;">
+            <input type="range" id="cannonAngle" min="25" max="60" value="42" style="width: 45%; height: 3px;">
+            <input type="range" id="cannonSpeed" min="25" max="50" value="35" style="width: 45%; height: 3px;">
+        </div>
+    </div>
+</div>
 {% endblock %}

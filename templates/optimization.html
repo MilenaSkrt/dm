@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Попробуй сам{% endblock %}
+{% block content %}
+<div class="content-sidebar">
+    <h1 style="font-size:32px; margin-bottom:20px">🎯 Попробуй сам</h1>
+
+    <div class="optimization-section" style="text-align:center; padding:50px 30px;">
+        <div style="font-size:56px; margin-bottom:15px;">🚧</div>
+        <h2 style="color:#968AE1; margin-bottom:12px;">Раздел в разработке</h2>
+        <p style="color:#81818B; font-size:16px; line-height:1.6;">
+            Здесь скоро появятся интерактивные задачи по оптимизации:<br>
+            попадание мяча в корзину, стендовая стрельба и другие.
+        </p>
+        <div style="margin-top:25px;">
+            <span style="display:inline-block; padding:8px 20px; background:#F5F5F7; border-radius:20px; color:#968AE1; font-size:14px;">
+                🎯 Следите за обновлениями
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="animation-area">
+    <div class="animation-card">
+        <h3>🎯 Движение тела под углом</h3>
+        <canvas id="projectileCanvas"></canvas>
+        <div class="anim-stats">
+            <span>📐 Угол: <span id="animAngleValue">50</span>°</span>
+            <span>⚡ Скорость: <span id="animSpeedValue">28</span> м/с</span>
+        </div>
+        <div style="display: flex; gap: 8px; margin-top: 6px;">
+            <input type="range" id="animAngle" min="20" max="70" value="50" style="width: 45%; height: 3px;">
+            <input type="range" id="animSpeed" min="15" max="40" value="28" style="width: 45%; height: 3px;">
+        </div>
+    </div>
+
+    <div class="animation-card">
+        <h3>💥 Выстрел ядра из пушки</h3>
+        <canvas id="cannonCanvas"></canvas>
+        <div class="anim-stats">
+            <span>📐 Угол: <span id="cannonAngleValue">42</span>°</span>
+            <span>⚡ Скорость: <span id="cannonSpeedValue">35</span> м/с</span>
+        </div>
+        <div style="display: flex; gap: 8px; margin-top: 6px;">
+            <input type="range" id="cannonAngle" min="25" max="60" value="42" style="width: 45%; height: 3px;">
+            <input type="range" id="cannonSpeed" min="25" max="50" value="35" style="width: 45%; height: 3px;">
+        </div>
+    </div>
+</div>
+{% endblock %}

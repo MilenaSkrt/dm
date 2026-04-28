@@ -1,55 +1,47 @@
-body {
-    margin: 0;
-    font-family: Arial;
-    background: #E1E1E2;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #FFFFFF; color: #1B1F26; }
 
 .navbar {
-    background: #1B1F26;
-    color: white;
-    padding: 15px 30px;
-    font-size: 20px;
+    position: fixed; top: 0; left: 0; right: 0; background: #FFFFFF;
+    padding: 15px 40px; display: flex; justify-content: space-between; align-items: center;
+    z-index: 100; border-bottom: 3px solid #968AE1; box-shadow: 0 4px 20px rgba(0,0,0,0.05);
 }
+.logo { font-size: 28px; font-weight: bold; background: linear-gradient(135deg, #968AE1, #002FE7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.nav-menu { display: flex; gap: 30px; }
+.nav-menu a { text-decoration: none; color: #1B1F26; padding: 8px 20px; border-radius: 25px; transition: all 0.3s; font-weight: 500; }
+.nav-menu a:hover { background: #968AE1; color: white; transform: translateY(-2px); }
 
-.container {
-    display: flex;
-}
+.main-container { display: flex; min-height: 100vh; padding-top: 80px; }
+.content-sidebar { width: 55%; padding: 40px 50px; background: #F5F5F7; min-height: calc(100vh - 80px); }
+.animation-area { width: 45%; padding: 40px 30px; background: #FFFFFF; position: sticky; top: 80px; height: calc(100vh - 80px); overflow-y: auto; border-left: 1px solid #81818B30; }
 
-.sidebar {
-    width: 250px;
-    background: #81818B;
-    min-height: 100vh;
-    padding: 20px;
-    color: white;
-}
+.animation-card { background: #F5F5F7; border-radius: 20px; padding: 20px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); transition: transform 0.3s; border: 1px solid #81818B30; }
+.animation-card:hover { transform: translateX(-5px); border-color: #968AE1; }
+.animation-card h3 { color: #002FE7; margin-bottom: 15px; font-size: 18px; display: flex; align-items: center; gap: 10px; }
+.animation-card canvas { width: 100%; height: 220px; border-radius: 12px; background: #FFFFFF; border: 1px solid #81818B30; }
 
-.sidebar a {
-    display: block;
-    margin: 10px 0;
-    color: white;
-    text-decoration: none;
-}
+.welcome-section h1 { font-size: 42px; margin-bottom: 20px; background: linear-gradient(135deg, #002FE7, #968AE1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.welcome-text { line-height: 1.8; font-size: 18px; background: white; padding: 30px; border-radius: 20px; margin-bottom: 30px; border-left: 4px solid #FF7641; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
 
-.sidebar a:hover {
-    color: #FFF854;
-}
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 30px; }
+.feature-card { background: white; border-radius: 20px; padding: 25px; text-align: center; transition: all 0.3s; border: 1px solid #81818B30; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+.feature-card:hover { transform: translateY(-5px); border-color: #968AE1; box-shadow: 0 10px 30px rgba(150,138,225,0.15); }
+.feature-icon { font-size: 48px; margin-bottom: 15px; }
+.feature-card h3 { color: #002FE7; margin-bottom: 10px; font-size: 22px; }
+.feature-card p { color: #1B1F26; line-height: 1.5; margin-bottom: 15px; }
+.feature-btn { display: inline-block; padding: 10px 25px; background: linear-gradient(135deg, #968AE1, #002FE7); color: white; text-decoration: none; border-radius: 25px; font-weight: bold; transition: all 0.3s; }
+.feature-btn:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(0,47,231,0.3); }
 
-.content {
-    flex: 1;
-    padding: 40px;
-}
+.theory-section, .physics-section, .optimization-section { background: white; border-radius: 20px; padding: 25px; margin-bottom: 25px; border: 1px solid #81818B30; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+.theory-section h2, .physics-section h2, .optimization-section h2 { color: #002FE7; margin-bottom: 20px; border-left: 4px solid #FF7641; padding-left: 15px; }
+.math-block { background: #F5F5F7; padding: 20px; border-radius: 12px; font-family: monospace; margin: 20px 0; overflow-x: auto; color: #FF7641; border-left: 3px solid #968AE1; }
 
-.btn {
-    background: #FF7641;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-}
+.form-group { margin: 20px 0; }
+.form-group label { display: inline-block; width: 180px; color: #968AE1; font-weight: 500; }
+.form-group input { background: #F5F5F7; border: 1px solid #81818B; color: #1B1F26; padding: 8px 15px; border-radius: 10px; width: 120px; }
+button { background: linear-gradient(135deg, #968AE1, #002FE7); color: white; border: none; padding: 12px 30px; border-radius: 25px; cursor: pointer; font-weight: bold; transition: all 0.3s; margin-top: 10px; }
+button:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,47,231,0.3); }
+.result { margin-top: 20px; padding: 20px; background: #F5F5F7; border-radius: 12px; display: none; border-left: 3px solid #FFF854; }
+.plot-canvas { margin-top: 20px; width: 100%; max-width: 600px; border-radius: 12px; background: #F5F5F7; border: 1px solid #81818B30; }
 
-.card {
-    background: white;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-}
+@media (max-width: 1000px) { .main-container { flex-direction: column; } .content-sidebar, .animation-area { width: 100%; } .animation-area { position: static; border-left: none; border-top: 1px solid #81818B30; } }

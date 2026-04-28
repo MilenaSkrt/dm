@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+{% block title %}Обучение{% endblock %}
+{% block content %}
+<div class="content-sidebar">
+    <h1 style="font-size:32px; margin-bottom:20px">⚡ Практические примеры</h1>
+
+    <div class="physics-section">
+        <h2>Движение тела под углом к горизонту</h2>
+        <div class="form-group">
+            <label>Начальная скорость (м/с):</label>
+            <input type="number" id="v0" value="20" step="5">
+        </div>
+        <div class="form-group">
+            <label>Угол (градусы):</label>
+            <input type="number" id="angle" value="45" step="5">
+        </div>
+        <div class="form-group">
+            <label>Начальная высота (м):</label>
+            <input type="number" id="h0" value="0" step="1">
+        </div>
+        <button onclick="solveProjectile()">Рассчитать траекторию</button>
+        <canvas id="plotProjectile" class="plot-canvas" width="600" height="300"></canvas>
+        <div id="resultProjectile" class="result"></div>
+    </div>
+
+    <div class="physics-section">
+        <h2>Колебания пружинного маятника</h2>
+        <div class="form-group">
+            <label>Масса (кг):</label>
+            <input type="number" id="mass" value="1" step="0.5">
+        </div>
+        <div class="form-group">
+            <label>Жесткость (Н/м):</label>
+            <input type="number" id="k" value="10" step="5">
+        </div>
+        <div class="form-group">
+            <label>Начальное смещение (м):</label>
+            <input type="number" id="x0" value="0.1" step="0.05">
+        </div>
+        <div class="form-group">
+            <label>Коэффициент затухания:</label>
+            <input type="number" id="damping" value="0" step="0.5">
+        </div>
+        <button onclick="solveSpring()">Рассчитать колебания</button>
+        <canvas id="plotSpring" class="plot-canvas" width="600" height="300"></canvas>
+        <div id="resultSpring" class="result"></div>
+    </div>
+</div>
+
+<div class="animation-area">
+    <div class="animation-card">
+        <h3>🎯 Движение тела под углом</h3>
+        <canvas id="projectileCanvas"></canvas>
+        <div class="anim-stats">
+            <span>📐 Угол: <span id="animAngleValue">50</span>°</span>
+            <span>⚡ Скорость: <span id="animSpeedValue">28</span> м/с</span>
+        </div>
+        <div style="display: flex; gap: 8px; margin-top: 6px;">
+            <input type="range" id="animAngle" min="20" max="70" value="50" style="width: 45%; height: 3px;">
+            <input type="range" id="animSpeed" min="15" max="40" value="28" style="width: 45%; height: 3px;">
+        </div>
+    </div>
+
+    <div class="animation-card">
+        <h3>🔧 Колебания пружины</h3>
+        <canvas id="springCanvas"></canvas>
+        <div class="anim-stats">
+            <span>📊 m = 0.8 кг</span>
+            <span>🔧 k = 45 Н/м</span>
+            <span>📉 ζ = 0.33</span>
+        </div>
+    </div>
+
+    <div class="animation-card">
+        <h3>💥 Выстрел ядра из пушки</h3>
+        <canvas id="cannonCanvas"></canvas>
+        <div class="anim-stats">
+            <span>📐 Угол: <span id="cannonAngleValue">42</span>°</span>
+            <span>⚡ Скорость: <span id="cannonSpeedValue">35</span> м/с</span>
+        </div>
+        <div style="display: flex; gap: 8px; margin-top: 6px;">
+            <input type="range" id="cannonAngle" min="25" max="60" value="42" style="width: 45%; height: 3px;">
+            <input type="range" id="cannonSpeed" min="25" max="50" value="35" style="width: 45%; height: 3px;">
+        </div>
+    </div>
+</div>
+
+<script>
+function solveProjectile() {
+    const v0 = parseFloat(document.getElementById('v0').value);
+    const angle = parseFloat(document.getElementById('angle').value);
+    const h0 = parseFloat(document.getElementById('h0').value);
+    const g = 9.81;
+    const rad = angle * Math.PI / 180;
+    const vx = v0 * Math.cos(rad);
+    const vy = v0 * Math.sin(rad);
+    const tFlight = (vy + Math.sqrt(vy*vy + 2*g*h0)) / g;
+
+    const canvas = document.getElementById('plotProjectile');
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+
+    ctx.strokeStyle = '#81818B';
+    for(let i = 0; i <= 10; i++) {
+        ctx.beginPath();
+        ctx.moveTo(i * w/10, 0);
+        ctx.lineTo(i * w/10, h);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(0, i * h/10);
+        ctx.lineTo(w, i * h/10);
+        ctx.stroke();
+    }
+
+    const points = [];
+    for(let t = 0; t <= tFlight; t += tFlight/100) {
+        const x = vx * t;
+        const y = h0 + vy * t - 0.5 * g * t * t;
+        if(y >= 0) {
+            const x_px = (x / (vx * tFlight)) * w;
+            const y_px = h - (y / (vy*vy/(2*g) + h0 + 1)) * h;
+            points.push({x: x_px, y: y_px});
+        }
+    }
+
+    ctx.beginPath();
+    ctx.moveTo(points[0].x, points[0].y);
+    for(let i = 1; i < points.length; i++) {
+        ctx.lineTo(points[i].x, points[i].y);
+    }
+    ctx.strokeStyle = '#968AE1';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    const resultDiv = document.getElementById('resultProjectile');
+    resultDiv.style.display = 'block';
+    resultDiv.innerHTML = `
+        <strong>Результаты расчета:</strong><br>
+        Время полета: ${tFlight.toFixed(2)} с<br>
+        Дальность полета: ${(vx * tFlight).toFixed(2)} м<br>
+        Максимальная высота: ${(vy*vy/(2*g) + h0).toFixed(2)} м
+    `;
+}
+
+function solveSpring() {
+    const mass = parseFloat(document.getElementById('mass').value);
+    const k = parseFloat(document.getElementById('k').value);
+    const x0 = parseFloat(document.getElementById('x0').value);
+    const damping = parseFloat(document.getElementById('damping').value);
+    const omega0 = Math.sqrt(k / mass);
+    const beta = damping / (2 * mass);
+    const period = 2 * Math.PI / omega0;
+
+    const canvas = document.getElementById('plotSpring');
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+
+    ctx.beginPath();
+    ctx.moveTo(50, h/2);
+    ctx.lineTo(w-20, h/2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(50, 20);
+    ctx.lineTo(50, h-20);
+    ctx.stroke();
+
+    const points = [];
+    for(let t = 0; t <= 5; t += 0.05) {
+        let x;
+        if(damping > 0) {
+            x = x0 * Math.exp(-beta * t) * Math.cos(omega0 * t);
+        } else {
+            x = x0 * Math.cos(omega0 * t);
+        }
+        const x_px = 50 + (t / 5) * (w - 100);
+        const y_px = h/2 - (x / x0) * (h/2 - 50);
+        points.push({x: x_px, y: y_px});
+    }
+
+    ctx.beginPath();
+    ctx.moveTo(points[0].x, points[0].y);
+    for(let i = 1; i < points.length; i++) {
+        ctx.lineTo(points[i].x, points[i].y);
+    }
+    ctx.strokeStyle = '#FF7641';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    const resultDiv = document.getElementById('resultSpring');
+    resultDiv.style.display = 'block';
+    resultDiv.innerHTML = `
+        <strong>Результаты расчета:</strong><br>
+        Собственная частота: ${(omega0/(2*Math.PI)).toFixed(2)} Гц<br>
+        Период колебаний: ${period.toFixed(2)} с<br>
+        ${damping > 0 ? `Коэффициент затухания: ${beta.toFixed(2)}` : 'Колебания незатухающие'}
+    `;
+}
+</script>
+{% endblock %}

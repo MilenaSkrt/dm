@@ -1,13 +1,74 @@
 {% extends "base.html" %}
-
+{% block title %}Вход{% endblock %}
 {% block content %}
+<div class="content-sidebar">
+    <h1 style="font-size:36px; margin-bottom:20px">🔐 Вход в систему</h1>
+    <div class="optimization-section" style="text-align:center; padding:60px 40px;">
+        <div style="font-size:64px; margin-bottom:20px;">🔑</div>
+        <h2 style="color:#968AE1; margin-bottom:15px;">Авторизация</h2>
+        <p style="color:#81818B;">Форма входа будет здесь позже</p>
+    </div>
+</div>
+<div class="animation-area">
+    <div class="animation-card">
+        <h3>🎯 Движение тела под углом</h3>
+        <canvas id="projectileCanvas"></canvas>
+        <div class="anim-stats">
+            <span>📐 Угол: <span id="animAngleValue">50</span>°</span>
+            <span>⚡ Скорость: <span id="animSpeedValue">28</span> м/с</span>
+        </div>
+        <div style="display: flex; gap: 8px; margin-top: 6px;">
+            <input type="range" id="animAngle" min="20" max="70" value="50" style="width: 45%; height: 3px;">
+            <input type="range" id="animSpeed" min="15" max="40" value="28" style="width: 45%; height: 3px;">
+        </div>
+    </div>
 
-<h2>Вход</h2>
+    <div class="animation-card">
+        <h3>🔧 Колебания пружины</h3>
+        <canvas id="springCanvas"></canvas>
+        <div class="anim-stats">
+            <span>📊 m = 0.8 кг</span>
+            <span>🔧 k = 45 Н/м</span>
+            <span>📉 ζ = 0.33</span>
+        </div>
+    </div>
 
-<form onsubmit="loginUser(event)">
-    <input name="username" placeholder="Email"><br><br>
-    <input name="password" type="password" placeholder="Пароль"><br><br>
-    <button class="btn">Войти</button>
-</form>
+ <div class="animation-area">
+    <div class="animation-card">
+        <h3>🎯 Движение тела под углом</h3>
+        <canvas id="projectileCanvas"></canvas>
+        <div class="anim-stats">
+            <span>📐 Угол: <span id="animAngleValue">50</span>°</span>
+            <span>⚡ Скорость: <span id="animSpeedValue">28</span> м/с</span>
+        </div>
+        <div style="display: flex; gap: 8px; margin-top: 6px;">
+            <input type="range" id="animAngle" min="20" max="70" value="50" style="width: 45%; height: 3px;">
+            <input type="range" id="animSpeed" min="15" max="40" value="28" style="width: 45%; height: 3px;">
+        </div>
+    </div>
 
+    <div class="animation-card">
+        <h3>🔧 Колебания пружины</h3>
+        <canvas id="springCanvas"></canvas>
+        <div class="anim-stats">
+            <span>📊 m = 0.8 кг</span>
+            <span>🔧 k = 45 Н/м</span>
+            <span>📉 ζ = 0.33</span>
+        </div>
+    </div>
+
+    <div class="animation-card">
+        <h3>💥 Выстрел ядра из пушки</h3>
+        <canvas id="cannonCanvas"></canvas>
+        <div class="anim-stats">
+            <span>📐 Угол: <span id="cannonAngleValue">42</span>°</span>
+            <span>⚡ Скорость: <span id="cannonSpeedValue">35</span> м/с</span>
+        </div>
+        <div style="display: flex; gap: 8px; margin-top: 6px;">
+            <input type="range" id="cannonAngle" min="25" max="60" value="42" style="width: 45%; height: 3px;">
+            <input type="range" id="cannonSpeed" min="25" max="50" value="35" style="width: 45%; height: 3px;">
+        </div>
+    </div>
+</div>
+</div>
 {% endblock %}

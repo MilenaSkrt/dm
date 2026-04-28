@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}Теория{% endblock %}
+{% block content %}
+<div class="content-sidebar">
+    <h1 style="font-size:32px; margin-bottom:20px">📚 Теоретический материал</h1>
+
+    <div class="theory-section">
+        <h2>1. Численное решение математических задач</h2>
+
+        <h3 style="color:#968AE1; margin-top:15px">1.1. Задача Коши. Метод Рунге-Кутты 4-го порядка</h3>
+        <div class="math-block">
+            dy/dt = f(t, y),  y(t₀) = y₀<br><br>
+            k₁ = f(t_n, y_n)<br>
+            k₂ = f(t_n + h/2, y_n + h·k₁/2)<br>
+            k₃ = f(t_n + h/2, y_n + h·k₂/2)<br>
+            k₄ = f(t_n + h, y_n + h·k₃)<br>
+            y_{n+1} = y_n + h·(k₁ + 2k₂ + 2k₃ + k₄)/6
+        </div>
+
+        <h3 style="color:#968AE1; margin-top:15px">1.2. Сведение ДУ высокого порядка к системе</h3>
+        <div class="math-block">
+            y₁' = y₂<br>
+            y₂' = y₃<br>
+            ...<br>
+            yₙ' = f(t, y₁, y₂, ..., yₙ)
+        </div>
+
+        <h3 style="color:#968AE1; margin-top:15px">1.3. Краевая задача. Метод пристрелки</h3>
+        <p>Для уравнения y'' = f(x, y, y') с краевыми условиями y(a) = α, y(b) = β.</p>
+        <div class="math-block">
+            Алгоритм:<br>
+            1. Задаем начальный угол наклона s = y'(a)<br>
+            2. Решаем задачу Коши от a до b<br>
+            3. Сравниваем полученное y(b) с β<br>
+            4. Корректируем s методом Ньютона
+        </div>
+
+        <h3 style="color:#968AE1; margin-top:15px">1.4. Оптимизация. Метод Нелдера-Мида</h3>
+        <p>Метод деформируемого симплекса для поиска минимума функции n переменных.</p>
+    </div>
+
+    <div class="theory-section">
+        <h2>2. Математические модели в физике</h2>
+
+        <h3 style="color:#968AE1; margin-top:15px">2.1. Движение тела под углом к горизонту</h3>
+        <div class="math-block">
+            x(t) = v₀·cos(α)·t<br>
+            y(t) = y₀ + v₀·sin(α)·t - g·t²/2
+        </div>
+
+        <h3 style="color:#968AE1; margin-top:15px">2.2. Колебания пружинного маятника</h3>
+        <div class="math-block">
+            m·x'' + γ·x' + k·x = 0<br>
+            ω₀ = √(k/m) — собственная частота<br>
+            ζ = γ/(2√(mk)) — коэффициент затухания
+        </div>
+    </div>
+
+    <div class="theory-section">
+        <h2>3. Задачи поиска параметров модели</h2>
+        <p>Оптимизационные задачи для нахождения параметров, обеспечивающих попадание в цель</p>
+    </div>
+</div>
+
+<div class="animation-area">
+    <div class="animation-card">
+        <h3>🎯 Движение тела под углом</h3>
+        <canvas id="projectileCanvas"></canvas>
+        <div class="anim-stats">
+            <span>📐 Угол: <span id="animAngleValue">50</span>°</span>
+            <span>⚡ Скорость: <span id="animSpeedValue">28</span> м/с</span>
+        </div>
+        <div style="display: flex; gap: 8px; margin-top: 6px;">
+            <input type="range" id="animAngle" min="20" max="70" value="50" style="width: 45%; height: 3px;">
+            <input type="range" id="animSpeed" min="15" max="40" value="28" style="width: 45%; height: 3px;">
+        </div>
+    </div>
+
+    <div class="animation-card">
+        <h3>🔧 Колебания пружины</h3>
+        <canvas id="springCanvas"></canvas>
+        <div class="anim-stats">
+            <span>📊 m = 0.8 кг</span>
+            <span>🔧 k = 45 Н/м</span>
+            <span>📉 ζ = 0.33</span>
+        </div>
+    </div>
+
+    <div class="animation-card">
+        <h3>💥 Выстрел ядра из пушки</h3>
+        <canvas id="cannonCanvas"></canvas>
+        <div class="anim-stats">
+            <span>📐 Угол: <span id="cannonAngleValue">42</span>°</span>
+            <span>⚡ Скорость: <span id="cannonSpeedValue">35</span> м/с</span>
+        </div>
+        <div style="display: flex; gap: 8px; margin-top: 6px;">
+            <input type="range" id="cannonAngle" min="25" max="60" value="42" style="width: 45%; height: 3px;">
+            <input type="range" id="cannonSpeed" min="25" max="50" value="35" style="width: 45%; height: 3px;">
+        </div>
+    </div>
+</div>
+{% endblock %}
