@@ -19,9 +19,12 @@ from schemas import (
     SubmissionCreate, SubmissionRead, SubmissionUpdate
 )
 from auth import hash_password, verify_password, create_access_token, get_current_user
+from routers import sandbox
 
 # ---------------- APP ----------------
 app = FastAPI(title="Study M API")
+
+app.include_router(sandbox.router)
 
 Base.metadata.create_all(bind=engine)
 
@@ -208,6 +211,7 @@ def delete_submission(id: int, db: Session = Depends(get_db)):
 @app.get("/")
 def home(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
+
 
 @app.get("/login_page")
 def login_page(request: Request):
