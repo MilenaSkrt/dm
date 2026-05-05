@@ -20,11 +20,15 @@ from schemas import (
 )
 from auth import hash_password, verify_password, create_access_token, get_current_user
 from routers import sandbox
+from routers import theory
+from routers import tryyourself
 
 # ---------------- APP ----------------
 app = FastAPI(title="Study M API")
 
 app.include_router(sandbox.router)
+app.include_router(theory.router)
+app.include_router(tryyourself.router)
 
 Base.metadata.create_all(bind=engine)
 
@@ -225,9 +229,9 @@ def theory_page(request: Request):
 def physics_page(request: Request):
     return templates.TemplateResponse("physics.html", {"request": request})
 
-@app.get("/optimization")
-def optimization_page(request: Request):
-    return templates.TemplateResponse("optimization.html", {"request": request})
+@app.get("/tryyourself")
+def tryyourself_page(request: Request):
+    return templates.TemplateResponse("tryyourself.html", {"request": request})
 
 @app.get("/modules_page")
 def modules_page(request: Request, db: Session = Depends(get_db)):

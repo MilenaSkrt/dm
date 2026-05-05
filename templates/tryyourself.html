@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+{% block title %}Попробуй сам{% endblock %}
+{% block content %}
+<div class="content-sidebar">
+    <div style="background: white; border-radius: 14px; padding: 25px;">
+        <h1 style="color: #667eea; margin-bottom: 20px;">💻 Попробуй сам</h1>
+        <p style="margin-bottom: 30px;">Пиши код на Python, решай задачи, строй графики и экспериментируй.</p>
+
+        <!-- ПРИМЕР 1: Метод золотого сечения -->
+        <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; margin-bottom: 30px;">
+            <h3 style="color: #002FE7; margin-bottom: 10px;">🥇 Пример 1. Метод золотого сечения</h3>
+            <p style="margin-bottom: 15px;">Поиск минимума функции f(x) = (x-2)² + 1 на интервале [0, 5]. Метод золотого сечения — один из эффективных методов одномерной оптимизации.</p>
+
+            <div style="background: #1e1e1e; border-radius: 8px; overflow: hidden; margin-bottom: 10px;">
+                <textarea id="code1" rows="18" style="width: 100%; font-family: 'Courier New', monospace; background: #1e1e1e; color: #d4d4d4; padding: 12px; border: none; font-size: 13px; resize: vertical;">import math
+
+def f(x):
+    return (x - 2)**2 + 1  # минимум в x=2
+
+def golden_section(a, b, eps=0.001):
+    phi = (1 + math.sqrt(5)) / 2
+    iterations = 0
+
+    while abs(b - a) > eps:
+        iterations += 1
+        x1 = b - (b - a) / phi
+        x2 = a + (b - a) / phi
+
+        if f(x1) < f(x2):
+            b = x2
+        else:
+            a = x1
+
+    min_x = (a + b) / 2
+    print(f"Минимум в x = {min_x:.6f}")
+    print(f"f(x) = {f(min_x):.6f}")
+    print(f"Итераций: {iterations}")
+    return min_x
+
+golden_section(0, 5)</textarea>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                <button onclick="runCode('code1', 'output1')" style="background: #28a745; color: white; padding: 6px 16px; border: none; border-radius: 6px; cursor: pointer;">▶ Запустить</button>
+                <button onclick="clearCode('code1')" style="background: #6c757d; color: white; padding: 6px 16px; border: none; border-radius: 6px; cursor: pointer;">🗑 Очистить</button>
+            </div>
+
+            <div style="background: #2d2d2d; border-radius: 6px; padding: 10px; min-height: 120px; font-family: 'Courier New', monospace; font-size: 12px; color: #ce9178;">
+                <div id="output1">✨ Готов к выполнению</div>
+            </div>
+        </div>
+
+        <!-- ПРИМЕР 2: Градиентный спуск -->
+        <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; margin-bottom: 30px;">
+            <h3 style="color: #002FE7; margin-bottom: 10px;">📉 Пример 2. Градиентный спуск</h3>
+            <p style="margin-bottom: 15px;">Метод градиентного спуска для поиска минимума функции f(x) = x² - 4x + 4. Итеративно движемся в направлении антиградиента.</p>
+
+            <div style="background: #1e1e1e; border-radius: 8px; overflow: hidden; margin-bottom: 10px;">
+                <textarea id="code2" rows="16" style="width: 100%; font-family: 'Courier New', monospace; background: #1e1e1e; color: #d4d4d4; padding: 12px; border: none; font-size: 13px; resize: vertical;">def f(x):
+    return x**2 - 4*x + 4
+
+def grad(x):
+    return 2*x - 4
+
+def gradient_descent(start, lr=0.1, max_iter=30):
+    x = start
+    for i in range(max_iter):
+        g = grad(x)
+        x_new = x - lr * g
+        if abs(x_new - x) < 0.0001:
+            print(f"Сошлись на итерации {i+1}")
+            break
+        x = x_new
+        print(f"Итерация {i+1}: x = {x:.6f}, f(x) = {f(x):.6f}")
+
+    print(f"\nМинимум в x = {x:.6f}")
+    print(f"f(x) = {f(x):.6f}")
+
+gradient_descent(start=5, lr=0.1)</textarea>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                <button onclick="runCode('code2', 'output2')" style="background: #28a745; color: white; padding: 6px 16px; border: none; border-radius: 6px; cursor: pointer;">▶ Запустить</button>
+                <button onclick="clearCode('code2')" style="background: #6c757d; color: white; padding: 6px 16px; border: none; border-radius: 6px; cursor: pointer;">🗑 Очистить</button>
+            </div>
+
+            <div style="background: #2d2d2d; border-radius: 6px; padding: 10px; min-height: 120px; font-family: 'Courier New', monospace; font-size: 12px; color: #ce9178;">
+                <div id="output2">✨ Готов к выполнению</div>
+            </div>
+        </div>
+
+        <!-- ПРИМЕР 3: Решение ОДУ (Задача Коши) -->
+        <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; margin-bottom: 30px;">
+            <h3 style="color: #002FE7; margin-bottom: 10px;">📐 Пример 3. Решение ОДУ (метод Рунге-Кутты)</h3>
+            <p style="margin-bottom: 15px;">Решение задачи Коши dy/dx = -2y + sin(x), y(0)=1 методом Рунге-Кутты 4-го порядка.</p>
+
+            <div style="background: #1e1e1e; border-radius: 8px; overflow: hidden; margin-bottom: 10px;">
+                <textarea id="code3" rows="18" style="width: 100%; font-family: 'Courier New', monospace; background: #1e1e1e; color: #d4d4d4; padding: 12px; border: none; font-size: 13px; resize: vertical;">import math
+
+def runge_kutta(f, x0, y0, x_end, h=0.01):
+    x = x0
+    y = y0
+    print(f"x = {x:.4f}, y = {y:.6f}")
+
+    while x < x_end:
+        k1 = f(x, y)
+        k2 = f(x + h/2, y + h*k1/2)
+        k3 = f(x + h/2, y + h*k2/2)
+        k4 = f(x + h, y + h*k3)
+
+        y = y + h * (k1 + 2*k2 + 2*k3 + k4) / 6
+        x = x + h
+
+        if abs(x - round(x)) < 0.01:  # печатаем в целых x
+            print(f"x = {x:.1f}, y = {y:.6f}")
+
+    return y
+
+def f(x, y):
+    return -2*y + math.sin(x)
+
+print("Решение ОДУ dy/dx = -2y + sin(x), y(0)=1")
+print("=" * 40)
+result = runge_kutta(f, 0, 1, 5)
+print(f"\ny(5) = {result:.6f}")</textarea>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                <button onclick="runCode('code3', 'output3')" style="background: #28a745; color: white; padding: 6px 16px; border: none; border-radius: 6px; cursor: pointer;">▶ Запустить</button>
+                <button onclick="clearCode('code3')" style="background: #6c757d; color: white; padding: 6px 16px; border: none; border-radius: 6px; cursor: pointer;">🗑 Очистить</button>
+            </div>
+
+            <div style="background: #2d2d2d; border-radius: 6px; padding: 10px; min-height: 120px; font-family: 'Courier New', monospace; font-size: 12px; color: #ce9178;">
+                <div id="output3">✨ Готов к выполнению</div>
+            </div>
+        </div>
+
+        <!-- ПРИМЕР 4: Модель Мальтуса (биология) -->
+        <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; margin-bottom: 30px;">
+            <h3 style="color: #002FE7; margin-bottom: 10px;">📈 Пример 4. Модель роста популяции</h3>
+            <p style="margin-bottom: 15px;">Закон Мальтуса: dP/dt = r·P, P(0) = P₀. Аналитическое решение: P(t) = P₀·e^(r·t).</p>
+
+            <div style="background: #1e1e1e; border-radius: 8px; overflow: hidden; margin-bottom: 10px;">
+                <textarea id="code4" rows="14" style="width: 100%; font-family: 'Courier New', monospace; background: #1e1e1e; color: #d4d4d4; padding: 12px; border: none; font-size: 13px; resize: vertical;">import math
+
+def malthus(P0, r, t):
+    return P0 * math.exp(r * t)
+
+P0 = 100  # начальная популяция
+r = 0.1   # коэффициент роста (10% в год)
+
+print("Модель роста популяции (Мальтус)")
+print(f"Начальная популяция: {P0}")
+print(f"Коэффициент роста: {r}")
+print("=" * 40)
+
+for t in range(0, 11):
+    P = malthus(P0, r, t)
+    print(f"Год {t:2d}: популяция = {P:.1f}")
+
+print("\nЧерез 10 лет популяция увеличится в", malthus(P0, r, 10)/P0, "раз")</textarea>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                <button onclick="runCode('code4', 'output4')" style="background: #28a745; color: white; padding: 6px 16px; border: none; border-radius: 6px; cursor: pointer;">▶ Запустить</button>
+                <button onclick="clearCode('code4')" style="background: #6c757d; color: white; padding: 6px 16px; border: none; border-radius: 6px; cursor: pointer;">🗑 Очистить</button>
+            </div>
+
+            <div style="background: #2d2d2d; border-radius: 6px; padding: 10px; min-height: 120px; font-family: 'Courier New', monospace; font-size: 12px; color: #ce9178;">
+                <div id="output4">✨ Готов к выполнению</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+async function runCode(codeId, outputId) {
+    const code = document.getElementById(codeId).value;
+    const outputDiv = document.getElementById(outputId);
+
+    if (!code.trim()) {
+        outputDiv.innerHTML = '<span style="color: #f48771;">❌ Введите код</span>';
+        return;
+    }
+
+    outputDiv.innerHTML = '<span style="color: #9cdcfe;">⏳ Выполнение...</span>';
+
+    try {
+        const response = await fetch('/sandbox/run', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code: code, stdin: '', timeout: 10 })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            let output = result.output || '(нет вывода)';
+            outputDiv.innerHTML = `<pre style="margin: 0; white-space: pre-wrap;">${escapeHtml(output)}</pre>`;
+        } else {
+            outputDiv.innerHTML = `<pre style="margin: 0; white-space: pre-wrap; color: #f48771;">❌ Ошибка:\n${escapeHtml(result.error)}</pre>`;
+        }
+    } catch (e) {
+        outputDiv.innerHTML = `<span style="color: #f48771;">❌ Ошибка: ${e.message}</span>`;
+    }
+}
+
+function clearCode(codeId) {
+    document.getElementById(codeId).value = '';
+}
+
+function escapeHtml(text) {
+    if (!text) return '';
+    return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+</script>
+{% endblock %}
